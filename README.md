@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kalbuna — Website
 
-## Getting Started
+Marketing landing page for **Kalbuna**, a Tuna Bone Broth Powder brand, built from the
+design in `_source/PDF.js viewer.pdf`.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Motion (Framer Motion) for scroll animations.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # dev server → http://localhost:3000
+npm run build    # production build
+npm run start    # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    layout.tsx        # fonts (Hanken Grotesk / Spectral) + page metadata
+    globals.css       # brand tokens (colors/fonts) + paper-grain helper
+    page.tsx          # composes the four sections
+  components/
+    Hero.tsx          # navy hero: nav, tuna mark, tagline
+    Story.tsx         # "Our Story" + badges
+    Shop.tsx          # 3 product cards
+    Partner.tsx       # "Partner With Kalbuna" + Contact + footer
+    Reveal.tsx        # reusable scroll-into-view animation wrapper
+public/assets/
+  img/        # logos, wordmark, badges, paper texture
+  icons/      # search / person / envelope / phone
+  placeholders/  # ← swap these with real photos
+_source/        # original design deliverables (PDF, raw logos, color & font guide)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Brand tokens
 
-## Learn More
+Defined in `src/app/globals.css` (`@theme`) and usable as Tailwind classes:
 
-To learn more about Next.js, take a look at the following resources:
+| Token            | Value     | Tailwind class            |
+| ---------------- | --------- | ------------------------- |
+| Navy             | `#08295D` | `bg-navy` / `text-navy`   |
+| Cream            | `#FEFFF4` | `bg-cream` / `text-cream` |
+| Ink (near-black) | `#100F0D` | `bg-ink` / `text-ink`     |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Photos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`public/assets/placeholders/` currently holds the **design's own photos, extracted from the
+source PDF**, so the site matches the reference. Swap in your own by overwriting these files
+(keep the same filenames, or update the `src` paths in the components):
 
-## Deploy on Vercel
+- `our-story.jpg` — square (1:1), Our Story section
+- `shop-1.jpg`, `shop-2.jpg`, `shop-3.jpg` — portrait (4:5), product cards
+- `partner-banner.jpg` — wide banner (≈16:5)
+- `partner-detail.jpg` — Partner section image (≈4:5)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> Note: these photos came from the supplied PDF and are placeholders for layout — replace them
+> with your own licensed/owned imagery before going to production.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Fonts
+
+The PDF specifies **Telegraf** and **Morisawa**, which are commercial fonts. This build uses
+close free Google substitutes — **Hanken Grotesk** (≈ Telegraf) and **Spectral** (≈ Morisawa) —
+loaded in `src/app/layout.tsx`. If you have licensed Telegraf/Morisawa web fonts, add them with
+`next/font/local` and point the `--font-hanken` / `--font-spectral` CSS variables at them.
+
+The "KALBUNA" wordmark uses your supplied logo image, so it stays pixel-exact regardless of font.
