@@ -30,8 +30,10 @@ body {
 }
 
 /* Film-grain / paper texture over the navy sections.
-   overlay.png is white grain stored mostly in its alpha channel (alpha ~11% avg),
-   so it is meant to sit at full opacity with normal blending — not dialed down. */
+   paper-texture.png is white grain stored mostly in its alpha channel (alpha ~11% avg),
+   so it is meant to sit at full opacity with normal blending — not dialed down.
+   It must tile at its native 1366×768 (auto/repeat): stretching it to cover a tall
+   section upscales the grain until it looks pixelated (client revision 1). */
 .bg-grain {
   position: relative;
 }
@@ -41,8 +43,7 @@ body {
   inset: 0;
   z-index: 0;
   background-image: url("/assets/img/paper-texture.png");
-  background-size: cover;
-  background-position: center;
+  background-repeat: repeat;
   opacity: 1;
   pointer-events: none;
 }

@@ -28,14 +28,15 @@ export default function Partner() {
           </div>
         </Reveal>
 
-        {/* ---- Wide colorful banner (left-shifted) ---- */}
+        {/* ---- Wide colorful banner: full-bleed on mobile (revision 1),
+             left-shifted band on desktop (design page 4) ---- */}
         <Reveal delay={0.05}>
-          <figure className="mt-10 aspect-[15/4] w-[82%] overflow-hidden md:mt-12">
+          <figure className="-mx-6 mt-10 aspect-[12/5] overflow-hidden md:mx-0 md:mt-12 md:aspect-[17/4] md:w-[82%]">
             <Image
-              src="/assets/placeholders/partner-banner.jpg"
-              alt="Macro photograph of Kalbuna broth"
-              width={1313}
-              height={350}
+              src="/assets/img/partner-art.jpg"
+              alt="Tuna slices amid swirling ink"
+              width={1448}
+              height={1086}
               className="h-full w-full object-cover"
             />
           </figure>
@@ -50,21 +51,22 @@ export default function Partner() {
           </p>
         </Reveal>
 
-        {/* ---- Lower: contact (left) + square teal image (right) ---- */}
-        <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-10">
-          <div className="order-2 md:order-1 md:pt-12">
+        {/* ---- Lower: contact (left) + bones photo (right) — two columns
+             on mobile as well (revision 1, page 4) ---- */}
+        <div className="mt-8 grid grid-cols-[1.15fr_1fr] items-start gap-5 md:grid-cols-2 md:gap-10">
+          <div className="md:pt-12">
             <Reveal direction="right">
               <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
                 Contact Us
               </h3>
-              <ul className="mt-5 space-y-3 text-base md:text-lg">
-                <li className="flex items-center gap-4">
+              <ul className="mt-4 space-y-2.5 text-xs sm:text-sm md:mt-5 md:space-y-3 md:text-lg">
+                <li className="flex items-center gap-2.5 md:gap-4">
                   <Image
                     src="/assets/icons/envelope.png"
                     alt="Email"
                     width={236}
                     height={188}
-                    className="h-5 w-6 object-contain"
+                    className="h-4 w-5 object-contain md:h-5 md:w-6"
                   />
                   <a
                     href="mailto:adm.kalbuna@gmail.com"
@@ -73,25 +75,25 @@ export default function Partner() {
                     adm.kalbuna@gmail.com
                   </a>
                 </li>
-                <li className="flex items-center gap-4">
+                <li className="flex items-center gap-2.5 md:gap-4">
                   <Image
                     src="/assets/icons/phone.png"
                     alt="Phone"
                     width={240}
                     height={239}
-                    className="h-6 w-6 object-contain"
+                    className="h-5 w-5 object-contain md:h-6 md:w-6"
                   />
                   <a
-                    href="tel:+62812345678"
+                    href="tel:+6285161010568"
                     className="transition-colors hover:text-navy"
                   >
-                    (+62) 812345678
+                    (+62) 85161010568
                   </a>
                 </li>
               </ul>
 
               {/* Footer */}
-              <div className="mt-16">
+              <div className="mt-10 md:mt-16">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
                   Social media
                 </p>
@@ -110,14 +112,14 @@ export default function Partner() {
             </Reveal>
           </div>
 
-          <div className="order-1 md:order-2">
+          <div>
             <Reveal direction="left">
               <figure className="aspect-square w-full overflow-hidden md:ml-auto md:w-[90%]">
                 <Image
-                  src="/assets/placeholders/partner-detail.jpg"
-                  alt="Detail of Kalbuna broth"
-                  width={1200}
-                  height={1200}
+                  src="/assets/img/partner-bones.jpg"
+                  alt="Tuna bones displayed in an acrylic case"
+                  width={1086}
+                  height={1086}
                   className="h-full w-full object-cover"
                 />
               </figure>
