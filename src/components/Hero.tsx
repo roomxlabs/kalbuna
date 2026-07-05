@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { motion, type Variants } from "motion/react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 
 const navLinks = [
   { label: "About", href: "#story" },
@@ -25,8 +25,32 @@ const markIn: Variants = {
   visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
 };
 
+// Mobile menu link stagger (reused for exit via `hidden`).
+const menuList: Variants = {
+  hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.06 } },
+};
+
+const menuItem: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Lock background scroll and allow Escape-to-close while the mobile menu is open.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
 
   return (
     <header
@@ -34,7 +58,7 @@ export default function Hero() {
       className="bg-grain relative flex min-h-screen flex-col overflow-hidden bg-navy text-cream"
     >
       {/* ---- Nav ---- */}
-      <nav className="relative z-20 flex w-full items-center justify-between gap-4 px-8 pt-7 pb-3 md:grid md:grid-cols-3 md:px-12 md:pt-11 md:pb-4">
+      <nav className="relative z-40 flex w-full items-center justify-between gap-4 px-8 pt-7 pb-3 md:grid md:grid-cols-3 md:px-12 md:pt-11 md:pb-4">
         {/* Left: links (desktop) — Morisawa serif italic */}
         <ul className="hidden items-center gap-10 font-serif text-[clamp(1rem,1.6vw,1.6rem)] italic md:flex lg:gap-14">
           {navLinks.map((l) => (
@@ -75,8 +99,9 @@ export default function Hero() {
           </button>
           <button
             type="button"
-            aria-label="Menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             onClick={() => setMenuOpen((o) => !o)}
             className="flex h-6 w-7 flex-col justify-between md:hidden"
           >
@@ -87,18 +112,42 @@ export default function Hero() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <ul className="relative z-20 flex flex-col items-center gap-4 pb-6 font-serif text-xl italic md:hidden">
-          {navLinks.map((l) => (
-            <li key={l.label}>
-              <a href={l.href} onClick={() => setMenuOpen(false)} className="opacity-90 hover:opacity-100">
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* Mobile menu — full-screen FIXED overlay. Do NOT add `bg-grain` here:
+          `.bg-grain` is unlayered CSS setting `position: relative`, which beats
+          Tailwind's layered `.fixed` and would drop this back into flow, shoving
+          the hero (fish) down. Solid navy keeps it out of flow and fully opaque. */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-menu"
+            className="fixed inset-0 z-30 flex flex-col items-center justify-center bg-navy md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <motion.ul
+              className="flex flex-col items-center gap-9"
+              variants={menuList}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              {navLinks.map((l) => (
+                <motion.li key={l.label} variants={menuItem}>
+                  <a
+                    href={l.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-serif text-3xl italic opacity-90 transition-opacity duration-200 hover:opacity-100"
+                  >
+                    {l.label}
+                  </a>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ---- Center mark + tagline ---- */}
       <motion.div
