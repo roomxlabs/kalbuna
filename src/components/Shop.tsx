@@ -9,8 +9,9 @@ const products = [
 
 export default function Shop() {
   return (
-    // The whole section must fit one viewport with the cards side by side —
-    // stacked cards split across pages in the client's paged review (revision 1).
+    // On mobile the cards stack in a single centered column (revision 2 — client
+    // preferred vertical over the cramped 3-across). From sm+ they sit side by side
+    // so the section still fits one viewport for the client's paged review.
     <section
       id="shop"
       className="bg-grain relative flex min-h-screen flex-col bg-navy py-10 text-cream md:py-14"
@@ -21,7 +22,7 @@ export default function Shop() {
         </Reveal>
 
         <div className="flex flex-1 items-center py-8">
-          <div className="grid w-full grid-cols-3 gap-3 sm:gap-5 lg:gap-8">
+          <div className="mx-auto grid w-full max-w-sm grid-cols-1 gap-4 sm:max-w-none sm:grid-cols-3 sm:gap-5 lg:gap-8">
             {products.map((p, i) => (
               <Reveal key={p.weight} delay={i * 0.12}>
                 <article className="group flex h-full flex-col overflow-hidden rounded-sm bg-cream text-ink shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
