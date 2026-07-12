@@ -58,45 +58,12 @@ export default function Hero() {
       className="bg-grain relative flex min-h-screen flex-col overflow-hidden bg-navy text-cream"
     >
       {/* ---- Nav ---- */}
-      <nav className="relative z-40 flex w-full items-center justify-between gap-4 px-8 pt-7 pb-3 md:grid md:grid-cols-3 md:px-12 md:pt-11 md:pb-4">
-        {/* Left: links (desktop) — Morisawa serif italic */}
-        <ul className="hidden items-center gap-10 font-serif text-[clamp(1rem,1.6vw,1.6rem)] italic md:flex lg:gap-14">
-          {navLinks.map((l) => (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                className="opacity-90 transition-opacity duration-200 hover:opacity-100"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Center: wordmark */}
-        <a
-          href="#top"
-          aria-label="Kalbuna home"
-          className="justify-self-start md:justify-self-center"
-        >
-          <Image
-            src="/assets/img/wordmark-white.png"
-            alt="KALBUNA"
-            width={842}
-            height={165}
-            priority
-            className="h-[clamp(2rem,5vw,6rem)] w-auto"
-          />
-        </a>
-
-        {/* Right: icons + mobile toggle */}
-        <div className="flex items-center justify-end gap-6">
-          <button type="button" aria-label="Search" className="transition-transform duration-200 hover:scale-110">
-            <Image src="/assets/icons/search.png" alt="" width={307} height={298} className="h-6 w-6 object-contain md:h-7 md:w-7" />
-          </button>
-          <button type="button" aria-label="Account" className="transition-transform duration-200 hover:scale-110">
-            <Image src="/assets/icons/person.png" alt="" width={253} height={298} className="h-6 w-6 object-contain md:h-7 md:w-7" />
-          </button>
+      {/* 3-column grid at every breakpoint so the wordmark stays optically centered.
+          Mobile order:  [hamburger] · [KALBUNA] · [search + account]
+          Desktop order: [links]     · [KALBUNA] · [search + account]  */}
+      <nav className="relative z-40 grid w-full grid-cols-3 items-center gap-4 px-8 pt-7 pb-3 md:px-12 md:pt-11 md:pb-4">
+        {/* Left: mobile menu toggle / desktop links (Morisawa serif italic) */}
+        <div className="flex items-center justify-self-start">
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -108,6 +75,42 @@ export default function Hero() {
             <span className={`h-0.5 w-full bg-cream transition-transform ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
             <span className={`h-0.5 w-full bg-cream transition-opacity ${menuOpen ? "opacity-0" : ""}`} />
             <span className={`h-0.5 w-full bg-cream transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          </button>
+          <ul className="hidden items-center gap-10 font-serif text-[clamp(1rem,1.6vw,1.6rem)] italic md:flex lg:gap-14">
+            {navLinks.map((l) => (
+              <li key={l.label}>
+                <a
+                  href={l.href}
+                  className="opacity-90 transition-opacity duration-200 hover:opacity-100"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Center: wordmark. Lower min height keeps it clear of the icons on
+            narrow (~360px) phones and matches the client's reference proportions;
+            desktop size (5vw, capped) is unchanged. */}
+        <a href="#top" aria-label="Kalbuna home" className="justify-self-center">
+          <Image
+            src="/assets/img/wordmark-white.png"
+            alt="KALBUNA"
+            width={842}
+            height={165}
+            priority
+            className="h-[clamp(1.4rem,5vw,6rem)] w-auto"
+          />
+        </a>
+
+        {/* Right: icons */}
+        <div className="flex items-center justify-end gap-6 justify-self-end">
+          <button type="button" aria-label="Search" className="transition-transform duration-200 hover:scale-110">
+            <Image src="/assets/icons/search.png" alt="" width={307} height={298} className="h-6 w-6 object-contain md:h-7 md:w-7" />
+          </button>
+          <button type="button" aria-label="Account" className="transition-transform duration-200 hover:scale-110">
+            <Image src="/assets/icons/person.png" alt="" width={253} height={298} className="h-6 w-6 object-contain md:h-7 md:w-7" />
           </button>
         </div>
       </nav>
@@ -156,7 +159,17 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div variants={markIn} className="flex flex-1 items-center justify-center">
+        <motion.div variants={markIn} className="relative flex flex-1 items-center justify-center">
+          {/* Faint hairline through the logo's center on mobile — matches the
+              client's revision-1 hero. Anchored to this wrapper (which centers
+              the fish), so top-1/2 always lands on the fish's visual center
+              regardless of phone size — unlike the grain tile-seam it replaces,
+              which drifted onto/off the logo. `w-screen` spans edge-to-edge
+              despite the parent's px-6 padding. Desktop keeps a clean mark. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-1/2 h-px w-screen -translate-x-1/2 -translate-y-1/2 bg-cream/20 md:hidden"
+          />
           <Image
             src="/assets/img/logo-mark-white.png"
             alt="Kalbuna tuna mark"

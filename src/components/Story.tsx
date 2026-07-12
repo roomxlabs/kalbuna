@@ -14,60 +14,85 @@ const badges = [
 ];
 
 export default function Story() {
+  // Desktop (rev 2, page 2): a FULL-WIDTH two-column spread — client rejected
+  // the centered max-width version; the page runs edge to edge with only small
+  // margins. Badge trio (bottom of left column, via mt-auto against the
+  // stretched grid row) sits inline with the lab caption under the photo.
+  // Mobile keeps the rev 1 stack (heading → copy → badges → photo → caption).
   return (
-    <section id="story" className="bg-cream py-20 md:py-24">
-      <div className="mx-auto w-full max-w-7xl px-6">
-        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-14">
-          {/* Heading + text */}
-          <div>
+    // The grid stretches to the full viewport height (section flex → column →
+    // grid flex-1): heading pinned top, badges + caption pinned bottom, photo
+    // filling the middle — no dead space above/below at any zoom level.
+    <section
+      id="story"
+      className="bg-cream py-20 md:flex md:min-h-screen md:py-12"
+    >
+      <div className="w-full px-6 md:flex md:flex-col md:px-12 lg:px-16">
+        <div className="grid gap-10 md:flex-1 md:grid-cols-2 md:gap-14 lg:gap-20">
+          {/* LEFT: heading + copy, badges pushed to the bottom row */}
+          <div className="flex flex-col">
             <Reveal>
-              <h2 className="text-4xl font-medium tracking-tight text-ink md:text-5xl">
+              <h2 className="text-4xl font-medium tracking-tight text-ink md:text-6xl lg:text-7xl">
                 Our Story
               </h2>
             </Reveal>
-            <Reveal direction="right" className="mt-10 max-w-sm space-y-5 md:ml-10">
-              {paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className="text-center text-base leading-relaxed text-ink/85 md:text-justify"
-                >
-                  {p}
-                </p>
-              ))}
+
+            {/* Copy centered (h + v) in the space between heading and badges —
+                client asked for the empty area around the text to balance out */}
+            <div className="md:flex md:flex-1 md:items-center md:justify-center">
+              <Reveal
+                direction="right"
+                className="mt-8 max-w-md space-y-5 md:mt-0 md:space-y-7"
+              >
+                {paragraphs.map((p, i) => (
+                  <p
+                    key={i}
+                    className="text-center text-base leading-relaxed text-ink/85 md:text-justify md:text-xl lg:text-2xl"
+                  >
+                    {p}
+                  </p>
+                ))}
+              </Reveal>
+            </div>
+
+            {/* Badges — bottom-aligned on desktop so they read inline with the
+                lab caption across the page; centered mid-stack on mobile (rev 1). */}
+            <Reveal delay={0.1} className="mt-10 md:pt-10">
+              <ul className="flex items-end justify-center gap-8 md:gap-14 lg:gap-16">
+                {badges.map((b) => (
+                  <li key={b.alt}>
+                    <Image
+                      src={b.src}
+                      alt={b.alt}
+                      width={b.w}
+                      height={b.h}
+                      className="h-20 w-auto object-contain md:h-24 lg:h-28"
+                    />
+                  </li>
+                ))}
+              </ul>
             </Reveal>
           </div>
 
-          {/* Badges: between text and photo on mobile (revision 1),
-              spread across the bottom on desktop (design page 2) */}
-          <Reveal delay={0.1} className="md:order-3 md:col-span-2">
-            <ul className="mx-auto grid max-w-3xl grid-cols-3 place-items-center gap-6 md:mt-4">
-              {badges.map((b) => (
-                <li key={b.alt}>
-                  <Image
-                    src={b.src}
-                    alt={b.alt}
-                    width={b.w}
-                    height={b.h}
-                    className="h-24 w-auto object-contain md:h-28"
-                  />
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          {/* Photo + lab-results caption (top-aligned) */}
+          {/* RIGHT: photo + lab caption. The photo stretches (flex-1) to fill the
+              row height set by the left column, so the caption's bottom lands on
+              the same line as the badges. */}
           <Reveal direction="left">
-            <figure>
-              <div className="relative -mx-6 aspect-square overflow-hidden md:mx-0 md:w-full">
+            <figure className="md:flex md:h-full md:flex-col">
+              {/* 3:4 matches the photo's natural ratio (1086×1448) so mobile
+                  shows it uncropped, like desktop */}
+              <div className="relative -mx-6 aspect-[3/4] overflow-hidden md:mx-0 md:aspect-auto md:flex-1">
+                {/* contain on md — the tray is portrait (1086×1448) and the
+                    client wants it uncropped, like the mock */}
                 <Image
                   src="/assets/img/story-bones.jpg"
                   alt="Tuna bones laid out in a laboratory tray"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-cover md:object-contain"
                 />
               </div>
-              <figcaption className="mt-4 text-center text-sm font-medium leading-relaxed text-[#e44423]">
+              <figcaption className="mt-4 text-center text-sm font-medium leading-relaxed text-[#e44423] md:mt-5 md:text-base lg:text-lg">
                 Laboratory-tested :
                 <br />
                 35.68% <strong>Protein</strong>, naturally occurring{" "}
