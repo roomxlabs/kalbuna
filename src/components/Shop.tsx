@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
 import Reveal from "./Reveal";
 
 const products = [
@@ -8,38 +7,26 @@ const products = [
   { src: "/assets/placeholders/shop-3.jpg", weight: "200 g", size: "Large Size" },
 ];
 
-/* Generic placeholder marks (cream stroke, flip to navy on hover). Swap for the
-   real Shopee / Tokopedia / TikTok brand logos once the client supplies them. */
-function BagIcon() {
+/* Client-supplied marketplace marks (_source/*.png), pre-cropped to a shared
+   560px square so they keep the design's relative sizing. Rendered as a
+   currentColor mask so they flip cream -> navy with the pill's hover state. */
+function MarketIcon({ src }: { src: string }) {
   return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M6 8h12l-1 12H7L6 8Z" />
-      <path d="M9 8a3 3 0 0 1 6 0" />
-    </svg>
-  );
-}
-function ShopeeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.5 10a2.5 2.5 0 0 1 5 0M8.8 10h6.4l-.5 5.6a1 1 0 0 1-1 .9h-3.4a1 1 0 0 1-1-.9L8.8 10Z" />
-    </svg>
-  );
-}
-function CartIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <circle cx="9" cy="20" r="1" />
-      <circle cx="17" cy="20" r="1" />
-      <path d="M3 4h2l2.2 11a1 1 0 0 0 1 .8h8.4a1 1 0 0 0 1-.8L19 8H6" />
-    </svg>
+    <span
+      aria-hidden
+      className="h-8 w-8 shrink-0 bg-current"
+      style={{
+        WebkitMask: `url(${src}) center / contain no-repeat`,
+        mask: `url(${src}) center / contain no-repeat`,
+      }}
+    />
   );
 }
 
-const markets: { label: string; href: string; icon: ReactNode }[] = [
-  { label: "Shopee", href: "#", icon: <ShopeeIcon /> },
-  { label: "Tokopedia", href: "#", icon: <BagIcon /> },
-  { label: "Tiktok Shop", href: "#", icon: <CartIcon /> },
+const markets: { label: string; href: string; icon: string }[] = [
+  { label: "Shopee", href: "#", icon: "/assets/icons/shopee.png" },
+  { label: "Tokopedia", href: "#", icon: "/assets/icons/tokopedia.png" },
+  { label: "Tiktok Shop", href: "#", icon: "/assets/icons/tiktok.png" },
 ];
 
 export default function Shop() {
@@ -99,7 +86,7 @@ export default function Shop() {
                 href={m.href}
                 className="flex items-center justify-center gap-3 rounded-full border border-cream/70 px-6 py-3.5 text-lg font-medium transition-colors duration-300 hover:bg-cream hover:text-navy md:py-4 md:text-xl"
               >
-                {m.icon}
+                <MarketIcon src={m.icon} />
                 <span>{m.label}</span>
               </a>
             ))}
