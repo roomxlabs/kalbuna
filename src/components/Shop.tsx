@@ -26,7 +26,7 @@ function MarketIcon({ src }: { src: string }) {
 const markets: { label: string; href: string; icon: string }[] = [
   { label: "Shopee", href: "https://id.shp.ee/beu7thaG", icon: "/assets/icons/shopee.png" },
   { label: "Tokopedia", href: "https://tk.tokopedia.com/ZSX4UqM4v/", icon: "/assets/icons/tokopedia.png" },
-  { label: "Tiktok Shop", href: "https://tk.tokopedia.com/ZSXFSyrXK/", icon: "/assets/icons/tiktok.png" },
+  { label: "Tiktok Shop", href: "https://www.tiktok.com/@kalbuna.id?_r=1&_t=ZS-97yBhQx0sts", icon: "/assets/icons/tiktok.png" },
 ];
 
 export default function Shop() {
