@@ -31,18 +31,29 @@ export default function Story() {
         <div className="grid gap-10 md:flex-1 md:grid-cols-2 md:gap-14 lg:gap-20">
           {/* LEFT: heading + copy, badges pushed to the bottom row */}
           <div className="flex flex-col">
-            <Reveal>
-              <h2 className="text-4xl font-medium tracking-tight text-ink md:text-6xl lg:text-7xl">
-                Our Story
-              </h2>
-            </Reveal>
+            {/* Heading nudged right on desktop via a centered max-w-lg box —
+                its left edge sits just left of the centered copy (client wanted
+                "Our Story" off the far-left edge, then a little back left).
+                Centered on mobile so it matches the centered copy on the
+                stacked Galaxy-Tab layout (was left-aligned → looked broken). */}
+            <div className="md:flex md:justify-center">
+              <Reveal className="md:w-full md:max-w-lg">
+                <h2 className="text-center text-4xl font-medium tracking-tight text-ink md:text-left md:text-6xl lg:text-7xl">
+                  Our Story
+                </h2>
+              </Reveal>
+            </div>
 
             {/* Copy centered (h + v) in the space between heading and badges —
                 client asked for the empty area around the text to balance out */}
             <div className="md:flex md:flex-1 md:items-center md:justify-center">
+              {/* mx-auto centers the max-w-md copy box on the tablet range
+                  (450–768px): without it the box hugged the left while the
+                  heading + badges were centered → looked broken on Galaxy Tab.
+                  md:mx-0 hands centering back to the parent's justify-center. */}
               <Reveal
                 direction="right"
-                className="mt-8 max-w-md space-y-5 md:mt-0 md:space-y-7"
+                className="mx-auto mt-8 max-w-md space-y-5 md:mx-0 md:mt-0 md:space-y-7"
               >
                 {paragraphs.map((p, i) => (
                   <p

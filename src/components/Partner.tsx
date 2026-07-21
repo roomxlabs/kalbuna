@@ -130,6 +130,28 @@ export default function Partner() {
                       @kalbuna.id
                     </a>
                   </p>
+
+                  {/* Downloads — underlined links per the client's mock */}
+                  <p className="mt-3 md:mt-4">
+                    <a
+                      href="https://drive.google.com/drive/folders/1l7SMZzfPDgSX99kKBvh4Jx-wYt-FfvC8"
+                      target="_blank"
+                      rel="noopener"
+                      className="text-xs font-medium not-italic text-blue-600 transition-colors hover:text-blue-800 md:text-base"
+                    >
+                      Download Company Profile
+                    </a>
+                  </p>
+                  <p className="mt-1">
+                    <a
+                      href="https://drive.google.com/drive/folders/10wU-30qGc0cMxWzE8TWXjUWyAB7e0A8h"
+                      target="_blank"
+                      rel="noopener"
+                      className="text-xs font-medium not-italic text-blue-600 transition-colors hover:text-blue-800 md:text-base"
+                    >
+                      Download Specification Sheet
+                    </a>
+                  </p>
                 </div>
               </Reveal>
             </div>
