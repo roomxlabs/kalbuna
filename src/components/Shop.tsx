@@ -2,9 +2,9 @@ import Image from "next/image";
 import Reveal from "./Reveal";
 
 const products = [
-  { src: "/assets/placeholders/shop-1.jpg", weight: "20 g", size: "Small Size" },
-  { src: "/assets/placeholders/shop-2.jpg", weight: "100 g", size: "Regular Size" },
-  { src: "/assets/placeholders/shop-3.jpg", weight: "200 g", size: "Large Size" },
+  { src: "/assets/img/shop-20g.jpeg", weight: "20 g", size: "Small Size" },
+  { src: "/assets/img/shop-100g.jpeg", weight: "100 g", size: "Regular Size" },
+  { src: "/assets/img/shop-200g.jpeg", weight: "200 g", size: "Large Size" },
 ];
 
 /* Client-supplied marketplace marks (_source/*.png), pre-cropped to a shared
@@ -24,9 +24,9 @@ function MarketIcon({ src }: { src: string }) {
 }
 
 const markets: { label: string; href: string; icon: string }[] = [
-  { label: "Shopee", href: "#", icon: "/assets/icons/shopee.png" },
-  { label: "Tokopedia", href: "#", icon: "/assets/icons/tokopedia.png" },
-  { label: "Tiktok Shop", href: "#", icon: "/assets/icons/tiktok.png" },
+  { label: "Shopee", href: "https://id.shp.ee/beu7thaG", icon: "/assets/icons/shopee.png" },
+  { label: "Tokopedia", href: "https://tk.tokopedia.com/ZSX4UqM4v/", icon: "/assets/icons/tokopedia.png" },
+  { label: "Tiktok Shop", href: "https://tk.tokopedia.com/ZSXFSyrXK/", icon: "/assets/icons/tiktok.png" },
 ];
 
 export default function Shop() {
@@ -84,6 +84,8 @@ export default function Shop() {
               <a
                 key={m.label}
                 href={m.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 rounded-full border border-cream/70 px-6 py-3.5 text-lg font-medium transition-colors duration-300 hover:bg-cream hover:text-navy md:py-4 md:text-xl"
               >
                 <MarketIcon src={m.icon} />
