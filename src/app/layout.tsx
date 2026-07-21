@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Kalbuna — Crafted From Real Tuna Bones",
   description:
     "Kalbuna is a Tuna Bone Broth Powder crafted to deliver rich natural umami across a wide range of culinary applications — free from added MSG.",
-  icons: { icon: "/assets/img/logo-fish-dark.png" },
+  icons: { icon: "/assets/img/logo-fish-badge.png" },
 };
 
 export default function RootLayout({
