@@ -131,8 +131,11 @@ export default function Partner() {
                     </a>
                   </p>
 
-                  {/* Downloads — underlined links per the client's mock */}
-                  <p className="mt-3 md:mt-4">
+                  {/* Downloads — tucked tight under the Tiktok line as one
+                      group per the client's reference. text-xs md:text-base on
+                      the <p> (not just the <a>) keeps the line-height equal to
+                      the social lines so the spacing is even on mobile. */}
+                  <p className="mt-1 text-xs md:text-base">
                     <a
                       href="https://drive.google.com/drive/folders/1l7SMZzfPDgSX99kKBvh4Jx-wYt-FfvC8"
                       target="_blank"
@@ -142,7 +145,7 @@ export default function Partner() {
                       Download Company Profile
                     </a>
                   </p>
-                  <p className="mt-1">
+                  <p className="mt-1 text-xs md:text-base">
                     <a
                       href="https://drive.google.com/drive/folders/10wU-30qGc0cMxWzE8TWXjUWyAB7e0A8h"
                       target="_blank"
