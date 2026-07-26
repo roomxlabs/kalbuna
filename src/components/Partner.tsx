@@ -52,7 +52,7 @@ export default function Partner() {
         <div className="w-full px-6 md:px-10 lg:px-14">
           {/* ---- Sample CTA ---- */}
           <Reveal>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-ink/80 md:text-base lg:text-lg">
+            <p className="mx-auto mt-5 max-w-2xl text-center text-xs text-ink/80 md:mt-6 md:text-base lg:text-lg">
               Request a <strong className="font-semibold text-ink">sample</strong>{" "}
               &amp; discover the depth of{" "}
               <strong className="font-semibold text-ink">real tuna</strong> umami.
@@ -62,14 +62,16 @@ export default function Partner() {
           {/* ---- Contact (left) + bones photo (right) ---- */}
           {/* Client: full-edge spread left too big a void — keep the pair on a
               centered max-width row, contact left / photo right, with the
-              contact block BOTTOM-aligned to the photo's bottom edge */}
-          <div className="mt-4 grid grid-cols-[1fr_auto] items-center gap-6 md:mx-auto md:mt-8 md:flex md:w-full md:max-w-6xl md:items-end md:justify-between md:gap-16">
+              contact block BOTTOM-aligned to the photo's bottom edge.
+              rev-4: items-end on mobile too — the last download line must not
+              run past the photo's bottom edge. */}
+          <div className="mt-4 grid grid-cols-[1fr_auto] items-end gap-6 md:mx-auto md:mt-8 md:flex md:w-full md:max-w-6xl md:justify-between md:gap-16">
             <div>
               <Reveal direction="right">
-                <h3 className="text-lg font-medium tracking-tight md:text-[clamp(1.75rem,3.4vw,4rem)]">
+                <h3 className="text-lg font-medium leading-tight tracking-tight md:text-[clamp(1.75rem,3.4vw,4rem)] md:leading-normal">
                   Contact Us
                 </h3>
-                <ul className="mt-4 space-y-2.5 text-xs sm:text-sm md:mt-5 md:space-y-2 md:text-xl lg:text-2xl">
+                <ul className="mt-2 space-y-1 text-xs sm:text-sm md:mt-5 md:space-y-2 md:text-xl lg:text-2xl">
                   <li className="flex items-center gap-2.5 md:gap-4">
                     <Image
                       src="/assets/icons/envelope.png"
@@ -91,7 +93,7 @@ export default function Partner() {
                       alt="Phone"
                       width={240}
                       height={239}
-                      className="h-5 w-5 object-contain md:h-6 md:w-6"
+                      className="h-4 w-5 object-contain md:h-6 md:w-6"
                     />
                     <a
                       href="tel:+6285161010568"
@@ -102,13 +104,14 @@ export default function Partner() {
                   </li>
                 </ul>
 
-                {/* Social — big gap above it per the mock, so it lands on the
-                    photo's bottom line */}
-                <div className="mt-10 md:mt-16">
-                  <p className="text-xs font-bold text-ink md:text-base">
+                {/* Social — big gap above it on desktop so it lands on the
+                    photo's bottom line; on mobile the Canva reference keeps
+                    this gap tight (client: mobile had too big a gap) */}
+                <div className="mt-4 md:mt-16">
+                  <p className="text-[10px] font-bold leading-[14px] text-ink md:text-base md:leading-normal">
                     Social media
                   </p>
-                  <p className="mt-1 text-xs text-ink/80 md:text-base">
+                  <p className="mt-0.5 text-[10px] leading-[14px] text-ink/80 md:mt-1 md:text-base md:leading-normal">
                     Instagram /{" "}
                     <a
                       href="https://instagram.com/kalbuna.id"
@@ -119,7 +122,7 @@ export default function Partner() {
                       @kalbuna.id
                     </a>
                   </p>
-                  <p className="mt-1 text-xs text-ink/80 md:text-base">
+                  <p className="mt-0.5 text-[10px] leading-[14px] text-ink/80 md:mt-1 md:text-base md:leading-normal">
                     Tiktok /{" "}
                     <a
                       href="https://tiktok.com/@kalbuna.id"
@@ -135,22 +138,22 @@ export default function Partner() {
                       group per the client's reference. text-xs md:text-base on
                       the <p> (not just the <a>) keeps the line-height equal to
                       the social lines so the spacing is even on mobile. */}
-                  <p className="mt-1 text-xs md:text-base">
+                  <p className="mt-0.5 text-[9px] leading-[12px] md:mt-1 md:text-base md:leading-normal">
                     <a
                       href="https://drive.google.com/drive/folders/1l7SMZzfPDgSX99kKBvh4Jx-wYt-FfvC8"
                       target="_blank"
                       rel="noopener"
-                      className="text-xs font-medium not-italic text-blue-600 transition-colors hover:text-blue-800 md:text-base"
+                      className="text-[9px] font-medium not-italic text-blue-600 transition-colors hover:text-blue-800 md:text-base"
                     >
                       Download Company Profile
                     </a>
                   </p>
-                  <p className="mt-1 text-xs md:text-base">
+                  <p className="mt-0.5 text-[9px] leading-[12px] md:mt-1 md:text-base md:leading-normal">
                     <a
                       href="https://drive.google.com/drive/folders/10wU-30qGc0cMxWzE8TWXjUWyAB7e0A8h"
                       target="_blank"
                       rel="noopener"
-                      className="text-xs font-medium not-italic text-blue-600 transition-colors hover:text-blue-800 md:text-base"
+                      className="text-[9px] font-medium not-italic text-blue-600 transition-colors hover:text-blue-800 md:text-base"
                     >
                       Download Specification Sheet
                     </a>
